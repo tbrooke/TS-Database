@@ -22,7 +22,7 @@ services:
       retries: 5
       start_period: 30s
     networks:
-      - trust-network
+      - default
 
   # pgAdmin for database administration
   pgadmin:
@@ -41,7 +41,7 @@ services:
         condition: service_healthy
     restart: unless-stopped
     networks:
-      - trust-network
+      - default
 
   # pg_exporter for monitoring (Prometheus metrics)
   postgres_exporter:
@@ -56,7 +56,7 @@ services:
         condition: service_healthy
     restart: unless-stopped
     networks:
-      - trust-network
+      - default
 
 volumes:
   postgres_data:
@@ -65,4 +65,10 @@ volumes:
 networks:
   trust-network:
     driver: bridge
+    name: trust-network
+
+
+networks:
+  default:
+    external: true
     name: trust-network
